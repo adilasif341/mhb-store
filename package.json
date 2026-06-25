@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "assets:optimize": "node scripts/optimize-assets.mjs",
+    "product-images:fetch": "node scripts/fetch-product-images.mjs",
+    "import:data": "node scripts/import-store-data.mjs",
     "start": "next start",
     "lint": "eslint"
   },

@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# private migration exports can contain customer PII or service keys
+/migration/private/
 
 # vercel
 .vercel

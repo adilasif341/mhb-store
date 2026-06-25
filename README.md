@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MHB Natural Store
 
-## Getting Started
+Next.js ecommerce storefront and merchant backend for `mhb.com.pk`.
 
-First, run the development server:
+## Local Setup
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://127.0.0.1:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run assets:optimize
+npm run product-images:fetch
+npm run import:data
+npm run lint
+npm run build
+```
 
-## Learn More
+- `assets:optimize` converts local workspace images to compressed WebP in `public/web`.
+- `product-images:fetch` downloads product image URLs from the catalog CSV and converts them to WebP.
+- `import:data` regenerates `src/generated/products.json`, `orders.json`, and `reviews.json`.
 
-To learn more about Next.js, take a look at the following resources:
+## Merchant Backend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Private route:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```txt
+/mhbgher22
+```
 
-## Deploy on Vercel
+Set production credentials with environment variables:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+MERCHANT_ADMIN_USER=your-user
+MERCHANT_ADMIN_PASSWORD=your-strong-password
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Defaults for local development are listed in `.env.example`.
+
+## Data Safety
+
+Do not commit customer exports, order exports, service-account JSON files, courier credentials, payment credentials, or private keys.
+
+Safe product catalog exports are in `migration/catalog`.
+
+Private local-only exports go in `migration/private`, which is ignored by Git.
+
+## Assets
+
+Optimized WebP assets live in:
+
+```txt
+public/web
+```
+
+The generated catalog uses local `/web/*.webp` product images so product pages do not depend on old Shopify CDN image URLs.
